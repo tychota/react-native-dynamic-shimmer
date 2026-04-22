@@ -1,0 +1,12 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "rootDir": ".",
+    "outDir": "dist",
+    "types": ["node"],
+    "paths": {
+      "react-native-dynamic-shimmer": ["./src/index.ts"]
+    }
+  },
+  "include": ["src/**/*", "__tests__/**/*"]
+}
