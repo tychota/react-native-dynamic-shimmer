@@ -1,0 +1,27 @@
+pnpm-workspace.yaml
+  b4a114505f5ed661 1-4
+.npmrc
+  b4a114505f5ed661 1-5
+package.json
+  b4a114505f5ed661 1-32
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.2",
+  "base_commit_sha": "67480d2725824d6cadbfddedc7c146e9720992f5",
+  "prompts": {
+    "b4a114505f5ed661": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "99316da6-18a0-46c0-8dc2-2818f385dab1",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "Tycho Tatitscheff",
+      "messages": [],
+      "total_additions": 41,
+      "total_deletions": 0,
+      "accepted_lines": 41,
+      "overriden_lines": 0
+    }
+  }
+}
