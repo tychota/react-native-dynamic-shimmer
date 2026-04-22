@@ -1,0 +1,23 @@
+packages/react-native-dynamic-shimmer/src/Skeleton.tsx
+  b4a114505f5ed661 1-130
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.2",
+  "base_commit_sha": "0e488f8046412de3e21db7ea5c012c5b34140ed1",
+  "prompts": {
+    "b4a114505f5ed661": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "99316da6-18a0-46c0-8dc2-2818f385dab1",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "Tycho Tatitscheff",
+      "messages": [],
+      "total_additions": 228,
+      "total_deletions": 39,
+      "accepted_lines": 1272,
+      "overriden_lines": 0
+    }
+  }
+}
