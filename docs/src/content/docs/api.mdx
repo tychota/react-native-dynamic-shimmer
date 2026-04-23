@@ -1,0 +1,157 @@
+---
+title: API reference
+description: Every public prop, type, and helper.
+---
+
+## `<Skeleton>`
+
+```ts
+type SkeletonProps = {
+  // Required
+  loading: boolean;
+  children: ReactNode;
+  baseColor: string;
+  highlightColor: string;
+
+  // Optional — visual
+  animation?: "shimmer" | "pulse" | "none"; // default 'shimmer'
+  transition?: boolean | number; // ms; default 300, false disables
+  minShowDuration?: number; // ms; default 500
+
+  // Optional — extension hooks
+  renderBone?: RenderBoneFn;
+  classify?: ClassifyFn;
+  refineBones?: RefineBonesFn;
+
+  // Optional — observability
+  onMeasured?: (bones: ReadonlyArray<BoneRect>) => void;
+
+  // Optional — layout / a11y
+  style?: StyleProp<ViewStyle>;
+  accessibilityLabel?: string; // default "Loading"
+};
+```
+
+### Required props
+
+- **`loading`** — when `true`, render the skeleton; when `false`, render children as-is. Transition and sticky duration are handled internally.
+- **`children`** — the real component. Pass valid data (real or mock) so layout can be measured. Children always render while loading; they're hidden via `opacity: 0`.
+- **`baseColor`** — background color of each bone.
+- **`highlightColor`** — sweep color for shimmer, pulse target for pulse.
+
+### Optional visual props
+
+- **`animation`** — `'shimmer'` (default) is a translating gradient sweep; `'pulse'` is an opacity oscillation; `'none'` renders static bones (useful for test snapshots).
+- **`transition`** — milliseconds for the fade-out on `loading=false`. `true` uses 300ms; `false` disables the fade entirely.
+- **`minShowDuration`** — milliseconds. Once the skeleton appears, it stays for at least this long to prevent flicker.
+
+### Extension hooks
+
+- **`renderBone`** — replaces the default `<Bone>` per bone. See [renderBone](/react-native-dynamic-shimmer/extension/render-bone/).
+- **`classify`** — overrides the default fiber classifier. See [classify](/react-native-dynamic-shimmer/extension/classify/).
+- **`refineBones`** — transforms the IR tree before flattening. See [refineBones](/react-native-dynamic-shimmer/extension/refine-bones/).
+
+### Observability
+
+- **`onMeasured`** — called with the flattened `BoneRect[]` each time measurement completes. Useful for debug overlays, analytics, or memoization.
+
+## `<Bone>`
+
+```ts
+type BoneProps = {
+  rect: BoneRect;
+  ctx: BoneContext;
+};
+```
+
+The default bone renderer. Exposed so custom `renderBone` implementations can
+delegate the default visual back in for bones they don't want to override.
+
+## Types
+
+```ts
+type BoneKind = "text" | "image" | "view" | "container";
+
+type BoneRect = {
+  readonly x: number;
+  readonly y: number;
+  readonly width: number;
+  readonly height: number;
+  readonly borderRadius: number | "50%";
+  readonly kind: BoneKind;
+  readonly backgroundColor?: string;
+  readonly borderColor?: string;
+  readonly borderWidth?: number;
+};
+
+type BoneContext = {
+  readonly progress: SharedValue<number>;
+  readonly baseColor: string;
+  readonly highlightColor: string;
+  readonly animation: "shimmer" | "pulse" | "none";
+  readonly index: number;
+  readonly total: number;
+};
+
+type BoneNode = {
+  readonly id: string;
+  readonly type: string;
+  readonly classification: "leaf" | "container" | "transparent";
+  readonly rect: {
+    readonly x: number;
+    readonly y: number;
+    readonly width: number;
+    readonly height: number;
+  };
+  readonly style: {
+    backgroundColor?: string;
+    borderRadius?:
+      | number
+      | { topLeft?: number; topRight?: number; bottomLeft?: number; bottomRight?: number };
+    borderColor?: string;
+    borderWidth?: number;
+  };
+  readonly children: ReadonlyArray<BoneNode>;
+};
+
+type FiberNode = {
+  readonly type: string | Function | null;
+  readonly memoizedProps: unknown;
+  readonly stateNode: unknown;
+  readonly child: FiberNode | null;
+  readonly sibling: FiberNode | null;
+  readonly return: FiberNode | null;
+};
+
+type FiberClassification = "leaf" | "container" | "transparent" | "skip";
+
+type RenderBoneFn = (rect: BoneRect, ctx: BoneContext) => ReactNode;
+type ClassifyFn = (fiber: FiberNode) => FiberClassification;
+type RefineBonesFn = (tree: BoneNode) => BoneNode;
+```
+
+## IR helpers
+
+Exported for use inside `refineBones`:
+
+- `walk(tree, visitor)` — depth-first pre-order traversal; visitor receives `(node, path)`.
+- `find(tree, predicate): BoneNode | null` — first match.
+- `findAll(tree, predicate): BoneNode[]` — all matches, in pre-order.
+- `hide(tree, target): BoneNode` — returns a new tree with the target subtree removed.
+- `merge(tree, targets: BoneNode[]): BoneNode` — returns a new tree with the targets replaced by one bone at their union rect.
+- `union(rects): Rect | null` — bounding rect utility.
+
+## Default classifier
+
+Exported so custom `classify` functions can delegate for nodes they don't want to override:
+
+```ts
+import { defaultClassify, type ClassifyFn } from "react-native-dynamic-shimmer";
+
+const classify: ClassifyFn = (fiber) => {
+  const t = fiber.type;
+  if (typeof t === "function" && (t as { displayName?: string }).displayName === "MyIcon")
+    return "leaf";
+  return defaultClassify(fiber);
+};
+```
