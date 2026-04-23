@@ -1,0 +1,29 @@
+.oxlintrc.json
+  b4a114505f5ed661 1-2,4-5,9-18,22-24
+packages/react-native-dynamic-shimmer/vitest.config.ts
+  b4a114505f5ed661 1-22
+packages/react-native-dynamic-shimmer/__tests__/helpers/fakeFiber.ts
+  b4a114505f5ed661 1-37
+packages/react-native-dynamic-shimmer/__tests__/setup.ts
+  b4a114505f5ed661 1-3
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.2",
+  "base_commit_sha": "6bbebeb18052fc1c347d2872d0be5e78e6e7f495",
+  "prompts": {
+    "b4a114505f5ed661": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "99316da6-18a0-46c0-8dc2-2818f385dab1",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "Tycho Tatitscheff",
+      "messages": [],
+      "total_additions": 193,
+      "total_deletions": 101,
+      "accepted_lines": 69,
+      "overriden_lines": 0
+    }
+  }
+}
