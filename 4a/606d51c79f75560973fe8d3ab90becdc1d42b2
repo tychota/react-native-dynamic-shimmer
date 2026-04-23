@@ -1,0 +1,35 @@
+packages/react-native-dynamic-shimmer/LICENSE
+  b4a114505f5ed661 1-21
+packages/react-native-dynamic-shimmer/src/index.ts
+  b4a114505f5ed661 2
+packages/react-native-dynamic-shimmer/tsconfig.json
+  b4a114505f5ed661 1-12
+packages/react-native-dynamic-shimmer/README.md
+  b4a114505f5ed661 1-31
+packages/react-native-dynamic-shimmer/tsconfig.build.json
+  b4a114505f5ed661 1-3,5-10
+packages/react-native-dynamic-shimmer/tsdown.config.ts
+  b4a114505f5ed661 1-6,8-10
+packages/react-native-dynamic-shimmer/package.json
+  b4a114505f5ed661 1-54,64-71
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.2",
+  "base_commit_sha": "4a606d51c79f75560973fe8d3ab90becdc1d42b2",
+  "prompts": {
+    "b4a114505f5ed661": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "99316da6-18a0-46c0-8dc2-2818f385dab1",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "Tycho Tatitscheff",
+      "messages": [],
+      "total_additions": 184,
+      "total_deletions": 27,
+      "accepted_lines": 145,
+      "overriden_lines": 0
+    }
+  }
+}
