@@ -1,0 +1,82 @@
+---
+title: refineBones
+description: Transform the bone tree before flattening — hide, merge, reshape.
+---
+
+```ts
+type RefineBonesFn = (tree: BoneNode) => BoneNode;
+```
+
+`refineBones` receives the measured IR — a tree of plain JS objects — and
+returns a (new) tree. It runs after measurement, before flattening.
+
+## The tree
+
+```ts
+type BoneNode = {
+  readonly id: string
+  readonly type: string         // 'View', 'RCTText', 'UserCard', etc.
+  readonly classification: 'leaf' | 'container' | 'transparent'
+  readonly rect: { x: number; y: number; width: number; height: number }
+  readonly style: { backgroundColor?: string; borderRadius?: number | {...}; ... }
+  readonly children: ReadonlyArray<BoneNode>
+}
+```
+
+No React internals. Just data you can traverse and transform.
+
+## Helpers
+
+```ts
+import { walk, find, findAll, hide, merge, union } from "react-native-dynamic-shimmer";
+```
+
+- **`walk(tree, visit)`** — depth-first pre-order traversal.
+- **`find(tree, predicate)`** — first match, or `null`.
+- **`findAll(tree, predicate)`** — all matches, in pre-order.
+- **`hide(tree, target)`** — returns a new tree with the target subtree
+  removed.
+- **`merge(tree, targets[])`** — replaces the targets with one bone at their
+  union rect. Useful for tight line spacing.
+- **`union(rects)`** — bounding rect utility.
+
+## Patterns
+
+### Hide a decorative icon
+
+```tsx
+refineBones={(tree) => {
+  const chevron = find(tree, n => n.type === 'Chevron')
+  return chevron ? hide(tree, chevron) : tree
+}}
+```
+
+### Merge adjacent text lines
+
+```tsx
+refineBones={(tree) => {
+  const texts = findAll(tree, n => n.type === 'RCTText' && n.rect.y < 40)
+  return texts.length >= 2 ? merge(tree, texts.slice(0, 2)) : tree
+}}
+```
+
+### Enlarge a specific bone
+
+```tsx
+refineBones={(tree) => {
+  // Not provided by the library — build your own with walk + immutability.
+  // (Skipped for brevity — see the example app's refine-bones-merge screen
+  //  for a complete pattern.)
+  return tree
+}}
+```
+
+## When to use
+
+- `classify` for **structural** decisions (what counts as a leaf).
+- `refineBones` for **semantic** decisions (these two bones should merge; this
+  bone should go away).
+- `renderBone` for **visual** decisions (this bone should look different).
+
+Each hook is at a different layer; they compose without surprising each
+other.

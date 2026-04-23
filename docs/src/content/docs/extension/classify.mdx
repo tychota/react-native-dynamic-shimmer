@@ -1,0 +1,57 @@
+---
+title: classify
+description: Control which fibers become bones.
+---
+
+```ts
+type FiberClassification = "leaf" | "container" | "transparent" | "skip";
+type ClassifyFn = (fiber: FiberNode) => FiberClassification;
+```
+
+- `'leaf'` — emit a bone, **stop descending** into children.
+- `'container'` — emit a bone **and continue descending** into children.
+- `'transparent'` — don't emit, descend (plain positioning wrapper).
+- `'skip'` — don't emit, don't descend (hidden subtree).
+
+## Default
+
+The library ships a 4-way classifier:
+
+| Fiber type                                                       | Classification |
+| ---------------------------------------------------------------- | -------------- |
+| `Text` / `RCTText` / `TextInput`                                 | `leaf`         |
+| `Image` / `RCTImage`                                             | `leaf`         |
+| View with `display: 'none'` or `opacity: 0`                      | `skip`         |
+| Childless View with background, border, or radius                | `leaf`         |
+| View with children **AND** background / border / radius / shadow | `container`    |
+| Plain View wrapper                                               | `transparent`  |
+
+## Delegating to default
+
+For custom components that should be treated as one bone, override just those:
+
+```tsx
+import { Skeleton, defaultClassify, type ClassifyFn } from 'react-native-dynamic-shimmer'
+
+const classify: ClassifyFn = (fiber) => {
+  const t = fiber.type
+  if (typeof t === 'function' && (t as { displayName?: string }).displayName === 'MyIconBadge') {
+    return 'leaf'  // treat the whole badge as one bone
+  }
+  return defaultClassify(fiber)
+}
+
+<Skeleton loading classify={classify} ...>
+```
+
+## Skipping subtrees
+
+```tsx
+const classify: ClassifyFn = (fiber) => {
+  const t = fiber.type;
+  if (typeof t === "function" && (t as { displayName?: string }).displayName === "DebugOverlay") {
+    return "skip"; // don't shimmer the debug overlay
+  }
+  return defaultClassify(fiber);
+};
+```

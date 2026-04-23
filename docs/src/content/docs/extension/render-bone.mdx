@@ -1,0 +1,72 @@
+---
+title: renderBone
+description: Replace the default bone visual per bone.
+---
+
+```ts
+type RenderBoneFn = (rect: BoneRect, ctx: BoneContext) => ReactNode;
+```
+
+- **`rect`** — position, size, border radius, kind.
+- **`ctx`** — shared animation progress, colors, animation kind, and the
+  bone's index in the list.
+
+Return a React node. Return `undefined` to fall through to the default
+`<Bone>`.
+
+## Example: BlurView for image bones
+
+```tsx
+import { Skeleton, Bone, type RenderBoneFn } from "react-native-dynamic-shimmer";
+import { BlurView } from "expo-blur";
+
+const renderBone: RenderBoneFn = (rect, ctx) => {
+  if (rect.kind === "image") {
+    return (
+      <BlurView
+        key={ctx.index}
+        intensity={70}
+        style={{
+          position: "absolute",
+          left: rect.x,
+          top: rect.y,
+          width: rect.width,
+          height: rect.height,
+          borderRadius: rect.borderRadius === "50%" ? rect.width / 2 : rect.borderRadius,
+        }}
+      />
+    );
+  }
+  // All other kinds → default visual
+  return <Bone key={ctx.index} rect={rect} ctx={ctx} />;
+};
+
+<Skeleton loading renderBone={renderBone} baseColor="#eee" highlightColor="#fff">
+  ...
+</Skeleton>;
+```
+
+## Using the shared progress
+
+`ctx.progress` is a `SharedValue<number>` oscillating 0..1 that all bones
+share. Custom bones should read it inside `useAnimatedStyle` worklets so the
+animation runs on the UI thread:
+
+```tsx
+import Animated, { useAnimatedStyle, interpolate } from "react-native-reanimated";
+
+function CustomBone({ rect, ctx }: BoneProps): JSX.Element {
+  const style = useAnimatedStyle(() => {
+    "worklet";
+    return { opacity: interpolate(ctx.progress.value, [0, 0.5, 1], [1, 0.5, 1]) };
+  });
+  return (
+    <Animated.View
+      style={[
+        { position: "absolute", left: rect.x, top: rect.y, width: rect.width, height: rect.height },
+        style,
+      ]}
+    />
+  );
+}
+```

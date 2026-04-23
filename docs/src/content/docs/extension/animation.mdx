@@ -1,0 +1,22 @@
+---
+title: Animation
+description: Shimmer, pulse, or none.
+---
+
+```tsx
+<Skeleton loading animation="shimmer" ...>
+<Skeleton loading animation="pulse"   ...>
+<Skeleton loading animation="none"    ...>
+```
+
+- **`shimmer`** (default) — a translating gradient sweep. Bones on the left
+  begin sweeping before bones on the right, so the overall motion reads as
+  light traveling across the card.
+- **`pulse`** — opacity oscillation between base and highlight. Calmer,
+  slightly less motion. Good for screens that already have other animations.
+- **`none`** — static bones with no motion. Useful for test snapshots or
+  screenshot harnesses; Reduce Motion users also see a static-ish state by
+  default via `ReduceMotion.System`.
+
+For a totally custom animation — say, a diagonal gradient or something
+interactive — implement it via [`renderBone`](/react-native-dynamic-shimmer/extension/render-bone/).

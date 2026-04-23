@@ -1,0 +1,39 @@
+---
+title: Colors
+description: baseColor and highlightColor — the minimum you pass.
+---
+
+```tsx
+<Skeleton loading={!user} baseColor="#e4e4e7" highlightColor="#f4f4f5">
+  {/* ... */}
+</Skeleton>
+```
+
+- **`baseColor`** — the bone's background.
+- **`highlightColor`** — the sweep / pulse color.
+
+Colors are **flat props** to stay decoupled from any theming system. Integrate
+with your own:
+
+```tsx
+// With Unistyles 3
+const theme = UnistylesRuntime.getTheme()
+<Skeleton baseColor={theme.colors.skeletonBase} highlightColor={theme.colors.skeletonHighlight}>
+```
+
+```tsx
+// With React Navigation theme
+const { colors } = useTheme()
+<Skeleton baseColor={colors.card} highlightColor={colors.border}>
+```
+
+## Recommended palettes
+
+Start with a two-step grey, slightly lighter highlight:
+
+| Mode  | `baseColor` | `highlightColor` |
+| ----- | ----------- | ---------------- |
+| Light | `#e4e4e7`   | `#f4f4f5`        |
+| Dark  | `#1f1f23`   | `#2a2a2f`        |
+
+For strong brand presence, use a brand color's 10% and 20% tints.
