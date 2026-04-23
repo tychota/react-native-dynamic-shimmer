@@ -1,0 +1,47 @@
+---
+title: react-native-dynamic-shimmer
+description: Dynamic shimmer skeletons for React Native — the real component is the skeleton.
+template: splash
+hero:
+  title: The real component is the skeleton
+  tagline: No build-time scan. No JSON bones. No CLI. Just wrap, pass mock data, done.
+  actions:
+    - text: Getting started
+      link: /react-native-dynamic-shimmer/getting-started/
+      icon: right-arrow
+      variant: primary
+    - text: GitHub
+      link: https://github.com/tychota/react-native-dynamic-shimmer
+      icon: external
+---
+
+## What it does
+
+A React Native component that shows a shimmer loading state for any component
+without requiring that component to be modified. The real component renders
+with mock data while `loading=true`; the library measures its native layout
+via Fabric's synchronous JSI `measureLayout`, and paints shimmer rectangles
+at the exact positions.
+
+- Works on **React Native ≥ 0.76** with the New Architecture (Fabric).
+- Requires **Reanimated ≥ 3.17** and **React ≥ 19**.
+- **React Compiler safe** — no manual `useMemo` or `React.memo` required.
+- **Accessible by default** — `progressbar` role, content hidden from VoiceOver while loading, reduce-motion respected.
+
+## Quick look
+
+```tsx
+import { Skeleton } from "react-native-dynamic-shimmer";
+
+<Skeleton loading={!user} baseColor="#eee" highlightColor="#fff">
+  <UserCard user={user ?? MOCK_USER} />
+</Skeleton>;
+```
+
+<aside>
+  Browsing the source? Try the{" "}
+  <a href="https://github.com/tychota/react-native-dynamic-shimmer/tree/main/apps/example">
+    example app
+  </a>{" "}
+  — 12 demos covering every library feature.
+</aside>
