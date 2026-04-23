@@ -1,0 +1,75 @@
+---
+title: Usage
+description: Common patterns — optimistic rendering, stale-while-revalidate, refresh, error.
+---
+
+## The loading contract
+
+Consumers decide what to render while `loading=true`. The library does not generate mock data. Typical patterns:
+
+### Nullable data + mock fallback
+
+```tsx
+<Skeleton loading={!user} baseColor={colors.base} highlightColor={colors.highlight}>
+  <UserCard user={user ?? MOCK_USER} />
+</Skeleton>
+```
+
+### Stale-while-revalidate
+
+```tsx
+const { data, isValidating } = useSWR('/user/1', fetchUser)
+
+<Skeleton loading={isValidating && !data} baseColor={colors.base} highlightColor={colors.highlight}>
+  <UserCard user={data ?? lastKnownUser} />
+</Skeleton>
+```
+
+### Keep shimmer showing even with data
+
+```tsx
+// Show skeleton while a background fetch is in flight, regardless of data presence.
+<Skeleton loading={isRefetching} baseColor={colors.base} highlightColor={colors.highlight}>
+  <UserCard user={user} />
+</Skeleton>
+```
+
+## Anti-flicker behavior
+
+By default:
+
+- If `loading` resolves within roughly one React render cycle, **the skeleton does not appear**. No render, no measurement, no animation.
+- Once the skeleton is visible, it stays visible for at least `minShowDuration` (default **500 ms**) before transitioning off.
+- `transition` (default **300 ms**) controls the fade-out.
+
+These defaults prevent flicker on fast cache hits and smooth the transition out.
+
+## Error states
+
+The library doesn't prescribe an error UI. Render your own when the query fails and let the skeleton handle the "still loading" path:
+
+```tsx
+if (error) return <ErrorCard error={error} onRetry={refetch} />;
+return (
+  <Skeleton loading={!data} baseColor={colors.base} highlightColor={colors.highlight}>
+    <UserCard user={data ?? MOCK_USER} />
+  </Skeleton>
+);
+```
+
+## Lists
+
+Wrap one `<Skeleton>` per row, not one around the whole list. Pass `null` slots during loading and render the card with mock data:
+
+```tsx
+<FlashList
+  data={users ?? new Array(20).fill(null)}
+  renderItem={({ item }) => (
+    <Skeleton loading={item === null} baseColor={colors.base} highlightColor={colors.highlight}>
+      <UserCard user={item ?? MOCK_USER} />
+    </Skeleton>
+  )}
+/>
+```
+
+See also: [List rows recipe](/react-native-dynamic-shimmer/recipes/list-rows/).
