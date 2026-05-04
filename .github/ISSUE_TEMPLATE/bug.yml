@@ -1,0 +1,20 @@
+name: Bug report
+description: Something is broken
+labels: ["bug"]
+body:
+  - type: input
+    id: rn
+    attributes: { label: "React Native version", placeholder: "0.83.0" }
+    validations: { required: true }
+  - type: input
+    id: lib
+    attributes: { label: "react-native-dynamic-shimmer version" }
+    validations: { required: true }
+  - type: textarea
+    id: repro
+    attributes: { label: "Reproduction", description: "Minimal code or Expo Snack URL" }
+    validations: { required: true }
+  - type: textarea
+    id: expected
+    attributes: { label: "Expected behavior" }
+    validations: { required: true }
