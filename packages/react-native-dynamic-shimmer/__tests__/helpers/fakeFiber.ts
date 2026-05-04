@@ -26,7 +26,7 @@ export function fiber(
     const c = children[i]!;
     c.return = node as FiberNode;
     if (i === 0) node.child = c as FiberNode;
-    if (i > 0) (children[i - 1]!).sibling = c as FiberNode;
+    if (i > 0) children[i - 1]!.sibling = c as FiberNode;
   }
   return node;
 }
