@@ -1,0 +1,16 @@
+[
+  {
+    "name": "ESM",
+    "path": "dist/index.mjs",
+    "limit": "25 kB",
+    "gzip": true,
+    "brotli": false
+  },
+  {
+    "name": "CJS",
+    "path": "dist/index.cjs",
+    "limit": "28 kB",
+    "gzip": true,
+    "brotli": false
+  }
+]
