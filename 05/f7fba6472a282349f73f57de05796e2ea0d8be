@@ -1,0 +1,25 @@
+packages/react-native-dynamic-shimmer/package.json
+  b4a114505f5ed661 52-53,56,65
+packages/react-native-dynamic-shimmer/.size-limit.json
+  b4a114505f5ed661 1-16
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.4",
+  "base_commit_sha": "05f7fba6472a282349f73f57de05796e2ea0d8be",
+  "prompts": {
+    "b4a114505f5ed661": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "99316da6-18a0-46c0-8dc2-2818f385dab1",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "Tycho Tatitscheff",
+      "messages": [],
+      "total_additions": 992,
+      "total_deletions": 47,
+      "accepted_lines": 984,
+      "overriden_lines": 8
+    }
+  }
+}
