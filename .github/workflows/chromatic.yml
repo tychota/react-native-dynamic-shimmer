@@ -1,0 +1,26 @@
+name: Chromatic
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  chromatic:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # Chromatic needs full history for baseline detection.
+          fetch-depth: 0
+      - uses: jdx/mise-action@v2
+      - run: corepack enable
+      - uses: actions/cache@v4
+        with:
+          path: ~/.local/share/pnpm/store
+          key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm --filter react-native-dynamic-shimmer storybook:build
+      - run: pnpm --filter react-native-dynamic-shimmer chromatic --storybook-build-dir storybook-static
+        env:
+          CHROMATIC_PROJECT_TOKEN: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
