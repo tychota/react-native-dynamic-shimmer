@@ -1,0 +1,32 @@
+apps/example/.maestro/e2e/happy-path.yaml
+  s_b4a114505f5ed6::t_6fcb5ac5655500 1-13
+apps/example/.maestro/visual/profile-card.yaml
+  s_b4a114505f5ed6::t_52731082d2cec4 1-15
+apps/example/.maestro/visual/loading-transition.yaml
+  s_b4a114505f5ed6::t_284058b332d684 1-14
+.github/workflows/example.yml
+  s_b4a114505f5ed6::t_192ccdf1d253ed 1-66
+apps/example/.maestro/e2e/fast-load.yaml
+  s_b4a114505f5ed6::t_1dbdb98cd0d163 1-14
+scripts/diff-screenshots.mjs
+  s_b4a114505f5ed6::t_e1bf5ce06fdc14 1-67,69-71
+  s_b4a114505f5ed6::t_6bb52c08a83c9c 68
+apps/example/.maestro/e2e/pull-to-refresh.yaml
+  s_b4a114505f5ed6::t_3a3824e0a4f142 1-13
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.8",
+  "base_commit_sha": "1a7fd7788f3197bf6628ecb2c9ec22d09dbe89c0",
+  "prompts": {},
+  "sessions": {
+    "s_b4a114505f5ed6": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "99316da6-18a0-46c0-8dc2-2818f385dab1",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "Tycho Tatitscheff <tycho.tatitscheff@gmail.com>"
+    }
+  }
+}
