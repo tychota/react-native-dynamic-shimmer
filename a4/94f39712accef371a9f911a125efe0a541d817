@@ -1,0 +1,39 @@
+package.json
+  s_b4a114505f5ed6::t_93b02124f96511 43,45
+  s_b4a114505f5ed6::t_61d81c8bd1d549 20
+.github/workflows/chromatic.yml
+  s_b4a114505f5ed6::t_611a53fa4975eb 12,16,18
+.github/workflows/ci.yml
+  s_b4a114505f5ed6::t_611a53fa4975eb 15-16,18,34,36,50
+.github/workflows/docs.yml
+  s_b4a114505f5ed6::t_611a53fa4975eb 21-22,24,30,34
+.nvmrc
+  s_b4a114505f5ed6::t_4fc927bf8fe3c4 1
+mise.toml
+  s_b4a114505f5ed6::t_23d291952a2d0c 2-3
+.github/workflows/release.yml
+  s_b4a114505f5ed6::t_611a53fa4975eb 36,38,40
+pnpm-workspace.yaml
+  s_b4a114505f5ed6::t_37bcdc68dc6738 5-10,12-15
+  s_b4a114505f5ed6::t_81a84ec88352dd 11
+.node-version
+  s_b4a114505f5ed6::t_cb03dba937a22b 1
+.github/workflows/example.yml
+  s_b4a114505f5ed6::t_611a53fa4975eb 26-28,31,39,49-50,52,61
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.8",
+  "base_commit_sha": "a494f39712accef371a9f911a125efe0a541d817",
+  "prompts": {},
+  "sessions": {
+    "s_b4a114505f5ed6": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "99316da6-18a0-46c0-8dc2-2818f385dab1",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "Tycho Tatitscheff <tycho.tatitscheff@gmail.com>"
+    }
+  }
+}
