@@ -1,0 +1,15 @@
+appId: com.theodoskeleton.shimmerexample
+tags:
+  - visual
+---
+- launchApp
+- tapOn: "Profile card"
+- waitFor:
+    timeout: 500
+- takeScreenshot:
+    path: apps/example/.maestro/screenshots/profile-card-shimmer
+- waitUntilVisible:
+    text: "Alice Martin"
+    timeout: 6000
+- takeScreenshot:
+    path: apps/example/.maestro/screenshots/profile-card-loaded

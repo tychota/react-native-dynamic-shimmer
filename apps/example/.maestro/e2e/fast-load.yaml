@@ -1,0 +1,14 @@
+appId: com.theodoskeleton.shimmerexample
+tags:
+  - e2e
+---
+- launchApp
+- tapOn: "Fast load (20 ms)"
+- waitUntilVisible:
+    text: "Alice Martin"
+    timeout: 3000
+# Data arrives in ~20 ms — well inside the 100 ms delayShowDuration window.
+# Skeleton should never have mounted; assert it's not visible by the time
+# the real content shows.
+- assertNotVisible:
+    id: "Loading"

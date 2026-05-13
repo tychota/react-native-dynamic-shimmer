@@ -1,0 +1,13 @@
+appId: com.theodoskeleton.shimmerexample
+tags:
+  - e2e
+---
+- launchApp
+- tapOn: "Profile card"
+- assertVisible:
+    id: "Loading"
+- waitUntilVisible:
+    text: "Alice Martin"
+    timeout: 6000
+- assertNotVisible:
+    id: "Loading"

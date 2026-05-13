@@ -1,0 +1,14 @@
+appId: com.theodoskeleton.shimmerexample
+tags:
+  - visual
+---
+- launchApp
+- tapOn: "Slow load (3 s)"
+- waitFor:
+    timeout: 300
+- takeScreenshot:
+    path: apps/example/.maestro/screenshots/transition-t300
+- waitFor:
+    timeout: 1500
+- takeScreenshot:
+    path: apps/example/.maestro/screenshots/transition-t1800
