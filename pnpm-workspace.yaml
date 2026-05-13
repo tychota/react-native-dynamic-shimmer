@@ -2,3 +2,14 @@ packages:
   - "packages/*"
   - "apps/*"
   - "docs"
+
+# pnpm 11 surfaces native-binary build scripts and asks each one to be
+# opted in. All four ship prebuilt binaries for the platforms we care
+# about (macos-arm64, linux-x64). None of these need to compile from
+# source — leaving them disabled matches pnpm 10's "ignored builds"
+# behaviour while making the choice explicit.
+allowBuilds:
+  "@swc/core": false
+  esbuild: false
+  sharp: false
+  unrs-resolver: false
