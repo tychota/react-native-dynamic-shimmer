@@ -5,7 +5,7 @@ description: Replace image bones with a blur effect instead of a gradient.
 
 ```tsx
 import { BlurView } from "expo-blur";
-import { Skeleton, Bone, type RenderBoneFn } from "react-native-dynamic-shimmer";
+import { Skeleton, Bone, type RenderBoneFn } from "react-native-fabric-shimmer";
 
 const renderBone: RenderBoneFn = (rect, ctx) => {
   if (rect.kind === "image") {

@@ -1,4 +1,4 @@
-# react-native-dynamic-shimmer
+# react-native-fabric-shimmer
 
 Dynamic shimmer skeletons for React Native. Wrap any component, the library measures
 it at runtime via Fabric's JSI `measureLayout` and paints shimmer rectangles at the
@@ -8,18 +8,18 @@ exact positions.
 - New Architecture only (React Native ≥ 0.76).
 - Peer deps: `react ≥ 19`, `react-native-reanimated ≥ 3.17`, `expo-linear-gradient ≥ 15`.
 
-See https://tychota.github.io/react-native-dynamic-shimmer for docs.
+See https://tychota.github.io/react-native-fabric-shimmer for docs.
 
 ## Install
 
 ```sh
-pnpm add react-native-dynamic-shimmer
+pnpm add react-native-fabric-shimmer
 ```
 
 ## Use
 
 ```tsx
-import { Skeleton } from "react-native-dynamic-shimmer";
+import { Skeleton } from "react-native-fabric-shimmer";
 
 <Skeleton loading={!user} baseColor="#eee" highlightColor="#fff">
   <UserCard user={user ?? MOCK_USER} />

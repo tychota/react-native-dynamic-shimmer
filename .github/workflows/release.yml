@@ -10,7 +10,7 @@ name: Release
 # npm authentication is **keyless** via OIDC trusted publishing.
 # Prerequisites (one-time, on npmjs.com side):
 #   - The package has a trusted publisher configured pointing at
-#     tychota/react-native-dynamic-shimmer + .github/workflows/release.yml
+#     tychota/react-native-fabric-shimmer + .github/workflows/release.yml
 #   - Either pre-claimed via `npm trust github <pkg> --repo ... --file ...`
 #     before the first publish, or claimed via the package's Settings page
 #     after a manual first publish.
@@ -42,7 +42,7 @@ jobs:
           path: ~/.local/share/pnpm/store
           key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}
       - run: pnpm install --frozen-lockfile
-      - run: pnpm --filter react-native-dynamic-shimmer build
+      - run: pnpm --filter react-native-fabric-shimmer build
       # Configure npm registry so `pnpm publish` can negotiate the OIDC
       # token exchange. No auth token in .npmrc — its absence is what
       # signals "use OIDC" to the npm CLI.

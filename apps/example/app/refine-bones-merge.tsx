@@ -1,6 +1,6 @@
 import React from "react";
 import { View, Text, Switch } from "react-native";
-import { Skeleton, findAll, merge } from "react-native-dynamic-shimmer";
+import { Skeleton, findAll, merge } from "react-native-fabric-shimmer";
 import { StyleSheet, UnistylesRuntime } from "react-native-unistyles";
 import { DemoScreen } from "../src/components/DemoScreen";
 import { UserCard } from "../src/components/UserCard";

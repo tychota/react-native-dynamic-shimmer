@@ -1,8 +1,8 @@
 import type { ExpoConfig } from "expo/config";
 
 const config: ExpoConfig = {
-  name: "rn-dynamic-shimmer-example",
-  slug: "rn-dynamic-shimmer-example",
+  name: "rn-fabric-shimmer-example",
+  slug: "rn-fabric-shimmer-example",
   version: "0.0.0",
   orientation: "portrait",
   scheme: "shimmer-example",

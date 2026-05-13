@@ -5,7 +5,7 @@
     "outDir": "dist",
     "types": ["node"],
     "paths": {
-      "react-native-dynamic-shimmer": ["./src/index.ts"]
+      "react-native-fabric-shimmer": ["./src/index.ts"]
     }
   },
   "include": ["src/**/*", "__tests__/**/*"]

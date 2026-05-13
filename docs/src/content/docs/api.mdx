@@ -47,9 +47,9 @@ type SkeletonProps = {
 
 ### Extension hooks
 
-- **`renderBone`** — replaces the default `<Bone>` per bone. See [renderBone](/react-native-dynamic-shimmer/extension/render-bone/).
-- **`classify`** — overrides the default fiber classifier. See [classify](/react-native-dynamic-shimmer/extension/classify/).
-- **`refineBones`** — transforms the IR tree before flattening. See [refineBones](/react-native-dynamic-shimmer/extension/refine-bones/).
+- **`renderBone`** — replaces the default `<Bone>` per bone. See [renderBone](/react-native-fabric-shimmer/extension/render-bone/).
+- **`classify`** — overrides the default fiber classifier. See [classify](/react-native-fabric-shimmer/extension/classify/).
+- **`refineBones`** — transforms the IR tree before flattening. See [refineBones](/react-native-fabric-shimmer/extension/refine-bones/).
 
 ### Observability
 
@@ -146,7 +146,7 @@ Exported for use inside `refineBones`:
 Exported so custom `classify` functions can delegate for nodes they don't want to override:
 
 ```ts
-import { defaultClassify, type ClassifyFn } from "react-native-dynamic-shimmer";
+import { defaultClassify, type ClassifyFn } from "react-native-fabric-shimmer";
 
 const classify: ClassifyFn = (fiber) => {
   const t = fiber.type;

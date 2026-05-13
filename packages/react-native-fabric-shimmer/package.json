@@ -1,5 +1,5 @@
 {
-  "name": "react-native-dynamic-shimmer",
+  "name": "react-native-fabric-shimmer",
   "version": "0.0.0",
   "description": "Dynamic shimmer skeletons for React Native — wraps the real component, measures at runtime via Fabric JSI, paints shimmer at exact positions.",
   "keywords": [
@@ -10,14 +10,14 @@
     "shimmer",
     "skeleton"
   ],
-  "homepage": "https://github.com/tychota/react-native-dynamic-shimmer#readme",
-  "bugs": "https://github.com/tychota/react-native-dynamic-shimmer/issues",
+  "homepage": "https://github.com/tychota/react-native-fabric-shimmer#readme",
+  "bugs": "https://github.com/tychota/react-native-fabric-shimmer/issues",
   "license": "MIT",
   "author": "Tycho Tatitscheff <tycho.tatitscheff@gmail.com>",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/tychota/react-native-dynamic-shimmer.git",
-    "directory": "packages/react-native-dynamic-shimmer"
+    "url": "git+https://github.com/tychota/react-native-fabric-shimmer.git",
+    "directory": "packages/react-native-fabric-shimmer"
   },
   "files": [
     "dist",

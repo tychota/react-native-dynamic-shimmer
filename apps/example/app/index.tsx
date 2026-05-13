@@ -84,7 +84,7 @@ export default function Home(): React.ReactElement {
   const groups = Array.from(new Set(DEMOS.map((d) => d.group)));
   return (
     <>
-      <Stack.Screen options={{ title: "react-native-dynamic-shimmer" }} />
+      <Stack.Screen options={{ title: "react-native-fabric-shimmer" }} />
       <ScrollView style={styles.root} contentContainerStyle={styles.content}>
         {groups.map((group) => (
           <View key={group} style={styles.group}>

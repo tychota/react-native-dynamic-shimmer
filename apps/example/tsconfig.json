@@ -4,7 +4,7 @@
     "rootDir": "../..",
     "jsx": "react-jsx",
     "paths": {
-      "react-native-dynamic-shimmer": ["../../packages/react-native-dynamic-shimmer/src/index.ts"]
+      "react-native-fabric-shimmer": ["../../packages/react-native-fabric-shimmer/src/index.ts"]
     }
   },
   "include": ["app/**/*", "src/**/*", "app.config.ts", ".expo/types/**/*.ts", "expo-env.d.ts"]

@@ -6,7 +6,7 @@ description: Show the skeleton only when the user triggers a refresh.
 ```tsx
 import { RefreshControl, ScrollView } from "react-native";
 import { useQuery } from "@tanstack/react-query";
-import { Skeleton } from "react-native-dynamic-shimmer";
+import { Skeleton } from "react-native-fabric-shimmer";
 
 function ProfileScreen(): JSX.Element {
   const q = useQuery({ queryKey: ["user", "1"], queryFn: fetchUser });

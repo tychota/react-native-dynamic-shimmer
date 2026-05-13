@@ -8,7 +8,7 @@ name: Example app
 on:
   pull_request:
     paths:
-      - "packages/react-native-dynamic-shimmer/**"
+      - "packages/react-native-fabric-shimmer/**"
       - "apps/example/**"
       - ".github/workflows/example.yml"
   schedule:
@@ -33,9 +33,9 @@ jobs:
           path: ~/.local/share/pnpm/store
           key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}
       - run: pnpm install --frozen-lockfile
-      - run: pnpm -F react-native-dynamic-shimmer build
-      - run: pnpm -F rn-dynamic-shimmer-example prebuild:android
-      - run: pnpm -F rn-dynamic-shimmer-example android:release
+      - run: pnpm -F react-native-fabric-shimmer build
+      - run: pnpm -F rn-fabric-shimmer-example prebuild:android
+      - run: pnpm -F rn-fabric-shimmer-example android:release
       - uses: mobile-dev-inc/action-maestro-cloud@v1
         with:
           api-key: ${{ secrets.MAESTRO_CLOUD_API_KEY }}
@@ -54,13 +54,13 @@ jobs:
           path: ~/.local/share/pnpm/store
           key: pnpm-${{ hashFiles('pnpm-lock.yaml') }}
       - run: pnpm install --frozen-lockfile
-      - run: pnpm -F react-native-dynamic-shimmer build
-      - run: pnpm -F rn-dynamic-shimmer-example prebuild:ios
+      - run: pnpm -F react-native-fabric-shimmer build
+      - run: pnpm -F rn-fabric-shimmer-example prebuild:ios
       - run: cd apps/example/ios && pod install
-      - run: pnpm -F rn-dynamic-shimmer-example ios:release
+      - run: pnpm -F rn-fabric-shimmer-example ios:release
       - uses: mobile-dev-inc/action-maestro-cloud@v1
         with:
           api-key: ${{ secrets.MAESTRO_CLOUD_API_KEY }}
-          app-file: apps/example/ios/build/Build/Products/Release-iphonesimulator/rn-dynamic-shimmer-example.app
+          app-file: apps/example/ios/build/Build/Products/Release-iphonesimulator/rn-fabric-shimmer-example.app
           workspace: apps/example/.maestro
           include-tags: e2e

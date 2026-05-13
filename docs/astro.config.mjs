@@ -3,16 +3,16 @@ import starlight from "@astrojs/starlight";
 
 export default defineConfig({
   site: "https://tychota.github.io",
-  base: "/react-native-dynamic-shimmer",
+  base: "/react-native-fabric-shimmer",
   integrations: [
     starlight({
-      title: "react-native-dynamic-shimmer",
+      title: "react-native-fabric-shimmer",
       description:
         "Dynamic shimmer skeletons for React Native — the real component is the skeleton.",
       logo: { src: "./public/favicon.svg", alt: "logo" },
-      social: { github: "https://github.com/tychota/react-native-dynamic-shimmer" },
+      social: { github: "https://github.com/tychota/react-native-fabric-shimmer" },
       editLink: {
-        baseUrl: "https://github.com/tychota/react-native-dynamic-shimmer/edit/main/docs/",
+        baseUrl: "https://github.com/tychota/react-native-fabric-shimmer/edit/main/docs/",
       },
       customCss: ["./src/styles/custom.css"],
       sidebar: [

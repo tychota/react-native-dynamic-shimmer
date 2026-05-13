@@ -8,7 +8,7 @@ body:
     validations: { required: true }
   - type: input
     id: lib
-    attributes: { label: "react-native-dynamic-shimmer version" }
+    attributes: { label: "react-native-fabric-shimmer version" }
     validations: { required: true }
   - type: textarea
     id: repro

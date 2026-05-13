@@ -1,6 +1,6 @@
 import React from "react";
 import { View } from "react-native";
-import { Bone, Skeleton, type RenderBoneFn } from "react-native-dynamic-shimmer";
+import { Bone, Skeleton, type RenderBoneFn } from "react-native-fabric-shimmer";
 import { StyleSheet, UnistylesRuntime } from "react-native-unistyles";
 import { DemoScreen } from "../src/components/DemoScreen";
 import { UserCard } from "../src/components/UserCard";

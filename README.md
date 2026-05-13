@@ -1,11 +1,11 @@
-# react-native-dynamic-shimmer — monorepo
+# react-native-fabric-shimmer — monorepo
 
 Dynamic shimmer skeletons for React Native — the real component **is** the skeleton.
 
 This repo contains:
 
-- **`packages/react-native-dynamic-shimmer/`** — the library, published to npm as
-  [`react-native-dynamic-shimmer`](https://www.npmjs.com/package/react-native-dynamic-shimmer).
+- **`packages/react-native-fabric-shimmer/`** — the library, published to npm as
+  [`react-native-fabric-shimmer`](https://www.npmjs.com/package/react-native-fabric-shimmer).
 - **`apps/example/`** — Expo demo app (Plan 2, not yet implemented).
 - **`docs/`** — Astro Starlight documentation site (Plan 4, not yet implemented).
 
@@ -17,8 +17,8 @@ corepack enable
 pnpm install
 
 # Library
-pnpm --filter react-native-dynamic-shimmer build
-pnpm --filter react-native-dynamic-shimmer test
+pnpm --filter react-native-fabric-shimmer build
+pnpm --filter react-native-fabric-shimmer test
 ```
 
 ## Specs and plans
