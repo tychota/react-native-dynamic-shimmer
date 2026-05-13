@@ -1,0 +1,3 @@
+# Reassure perf baseline is NDJSON — one JSON object per line — not standard
+# JSON. Skip formatting it.
+packages/react-native-dynamic-shimmer/__perf__/baseline.json
