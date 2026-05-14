@@ -28,26 +28,26 @@ The lockfile resolved newer patches than what `expo install` would pin today. No
 
 **Minor mismatches (4):**
 
-| package | current | SDK 55 expects |
-|---|---|---|
-| `@shopify/flash-list` | 2.3.1 | 2.0.2 |
-| `react-native-gesture-handler` | 2.31.1 | ~2.30.0 |
-| `react-native-safe-area-context` | 5.7.0 | ~5.6.2 |
-| `react-native-screens` | 4.24.0 | ~4.23.0 |
+| package                          | current | SDK 55 expects |
+| -------------------------------- | ------- | -------------- |
+| `@shopify/flash-list`            | 2.3.1   | 2.0.2          |
+| `react-native-gesture-handler`   | 2.31.1  | ~2.30.0        |
+| `react-native-safe-area-context` | 5.7.0   | ~5.6.2         |
+| `react-native-screens`           | 4.24.0  | ~4.23.0        |
 
 **Patch mismatches (9):**
 
-| package | current | SDK 55 expects |
-|---|---|---|
-| `@expo/metro-runtime` | 55.0.10 | ~55.0.11 |
-| `expo` | 55.0.17 | ~55.0.24 |
-| `expo-build-properties` | 55.0.13 | ~55.0.14 |
-| `expo-image` | 55.0.9 | ~55.0.10 |
-| `expo-linear-gradient` | 55.0.13 | ~55.0.14 |
-| `expo-linking` | 55.0.14 | ~55.0.15 |
-| `expo-router` | 55.0.13 | ~55.0.14 |
-| `expo-status-bar` | 55.0.5 | ~55.0.6 |
-| `react` | 19.2.5 | 19.2.0 (pinned) |
+| package                 | current | SDK 55 expects  |
+| ----------------------- | ------- | --------------- |
+| `@expo/metro-runtime`   | 55.0.10 | ~55.0.11        |
+| `expo`                  | 55.0.17 | ~55.0.24        |
+| `expo-build-properties` | 55.0.13 | ~55.0.14        |
+| `expo-image`            | 55.0.9  | ~55.0.10        |
+| `expo-linear-gradient`  | 55.0.13 | ~55.0.14        |
+| `expo-linking`          | 55.0.14 | ~55.0.15        |
+| `expo-router`           | 55.0.13 | ~55.0.14        |
+| `expo-status-bar`       | 55.0.5  | ~55.0.6         |
+| `react`                 | 19.2.5  | 19.2.0 (pinned) |
 
 The `react` flag is interesting — Expo SDK 55 pins React to exactly 19.2.0, but our root has resolved 19.2.5 (the latest patch). Since we use React patches across the monorepo (docs site, Storybook), bumping it down may break those. The other 12 are straightforward Expo-side updates.
 
@@ -123,9 +123,9 @@ Expected: interactive prompt listing the 13 packages. Accept all updates.
 
 Expo SDK 55 pins React to exactly `19.2.0`, but the monorepo's docs + Storybook + the library all use `^19.2.0` (currently resolved to 19.2.5). Two options:
 
-  a. **Pin React across the workspace to 19.2.0** — adds `"react": "19.2.0"` to root `pnpm.overrides`. Matches Expo's contract. Drops a few React patches.
+a. **Pin React across the workspace to 19.2.0** — adds `"react": "19.2.0"` to root `pnpm.overrides`. Matches Expo's contract. Drops a few React patches.
 
-  b. **Override Expo's pin** — keep React at 19.2.5 and add `"expo.install.exclude": ["react"]` to `apps/example/package.json` so expo-doctor stops flagging it. Acknowledges drift but stays on a newer React.
+b. **Override Expo's pin** — keep React at 19.2.5 and add `"expo.install.exclude": ["react"]` to `apps/example/package.json` so expo-doctor stops flagging it. Acknowledges drift but stays on a newer React.
 
 Recommended: **option (a)**. Patch-level React divergence between apps inside one workspace is a common debugging trap (different concurrent-features behaviour on the same code).
 
