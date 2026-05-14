@@ -1,0 +1,22 @@
+.github/workflows/example.yml
+  s_b4a114505f5ed6::t_183168e6eaf4b0 64-68
+  s_b4a114505f5ed6::t_29e057919de489 38-42
+apps/example/package.json
+  s_b4a114505f5ed6::t_7043497a440e9a 14-15
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.8",
+  "base_commit_sha": "e44b9f97fdfc1bff7aa1bf631845e39c74036d5e",
+  "prompts": {},
+  "sessions": {
+    "s_b4a114505f5ed6": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "99316da6-18a0-46c0-8dc2-2818f385dab1",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "Tycho Tatitscheff <tycho.tatitscheff@gmail.com>"
+    }
+  }
+}
