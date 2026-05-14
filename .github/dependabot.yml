@@ -4,8 +4,32 @@ updates:
     directory: "/"
     schedule: { interval: "weekly" }
     open-pull-requests-limit: 5
+    # react-native-reanimated and react-native-worklets are pinned via
+    # pnpm.overrides in the workspace root (RN 0.83 Fabric compat). Bumping
+    # them will fight the override and produce dirty PRs forever. Same
+    # rationale for `expo`: the SDK matrix is curated; rely on
+    # `expo install --check` instead of dependabot bumping individual
+    # packages out from under the SDK.
+    ignore:
+      - dependency-name: "react-native-reanimated"
+      - dependency-name: "react-native-worklets"
+      - dependency-name: "expo"
+        update-types: ["version-update:semver-patch", "version-update:semver-minor"]
+      # Vitest 4.x is a major rewrite (vitest-environment, jsdom interop).
+      # Block automatic majors; we'll plan that bump deliberately when we
+      # need it.
+      - dependency-name: "vitest"
+        update-types: ["version-update:semver-major"]
+      # React patch coherence is enforced via pnpm.overrides — let the
+      # workspace decide, not dependabot.
+      - dependency-name: "react"
+      - dependency-name: "react-dom"
     groups:
-      testing: { patterns: ["vitest*", "@testing-library/*", "@callstack/reassure*", "reassure"] }
+      testing:
+        {
+          patterns:
+            ["@testing-library/*", "@callstack/reassure*", "reassure", "@swc/jest", "jest*"],
+        }
       storybook: { patterns: ["storybook*", "@storybook/*", "chromatic"] }
       lint: { patterns: ["oxlint*", "oxfmt*", "eslint-plugin-*"] }
   - package-ecosystem: "github-actions"
