@@ -92,7 +92,7 @@ function safeClassify(fiber: FiberNode, classify: ClassifyFn): ReturnType<Classi
     return classify(fiber);
   } catch (err) {
     if (typeof __DEV__ !== "undefined" && __DEV__)
-      console.warn("[dynamic-shimmer] classify threw; falling back to default", err);
+      console.warn("[fabric-shimmer] classify threw; falling back to default", err);
     return defaultClassify(fiber);
   }
 }

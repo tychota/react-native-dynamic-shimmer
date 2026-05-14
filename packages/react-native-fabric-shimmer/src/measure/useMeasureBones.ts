@@ -22,13 +22,13 @@ export type UseMeasureBonesResult = {
 
 function devWarn(message: string): void {
   if (typeof __DEV__ !== "undefined" && __DEV__) {
-    console.warn(`[dynamic-shimmer] ${message}`);
+    console.warn(`[fabric-shimmer] ${message}`);
   }
 }
 
 function devLog(message: string): void {
   if (typeof __DEV__ !== "undefined" && __DEV__) {
-    console.log(`[dynamic-shimmer] ${message}`);
+    console.log(`[fabric-shimmer] ${message}`);
   }
 }
 
