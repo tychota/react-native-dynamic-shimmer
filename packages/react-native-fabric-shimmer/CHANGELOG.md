@@ -1,5 +1,15 @@
 # react-native-fabric-shimmer
 
+## 0.2.1
+
+### Patch Changes
+
+- [`c14be29`](https://github.com/tychota/react-native-fabric-shimmer/commit/c14be29cbad16f3a45db5a1fc5a3cb57d69987f4) Thanks [@tychota](https://github.com/tychota)! - Polish:
+  - Library README enriched with the "real component IS the skeleton" framing, the `refineBones` + `find`/`hide` extension example, a `dumpTree` debug snippet, and Credits (Nicușor Cîciudan's blog post and `0xGF/boneyard`) — the npm package page now shows the same level of detail as the docs site.
+  - Dev-mode warning prefix renamed from `[dynamic-shimmer]` to `[fabric-shimmer]` to match the package name. Three call sites updated (`useMeasureBones` two messages, `buildBoneTree` one). Filtering for these warnings in logs needs the new prefix.
+
+  No behaviour or public-API change.
+
 ## 0.2.0
 
 ### Minor Changes
