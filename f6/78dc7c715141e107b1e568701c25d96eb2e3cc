@@ -1,0 +1,21 @@
+.changeset/initial-release.md
+  s_b4a114505f5ed6::t_5b52b015732fe7 5-19
+superpowers/plans/2026-05-14-expo-upgrade.md
+  s_b4a114505f5ed6::t_ff6083eaa49ff4 31-36,40-50,126,128
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.8",
+  "base_commit_sha": "f678dc7c715141e107b1e568701c25d96eb2e3cc",
+  "prompts": {},
+  "sessions": {
+    "s_b4a114505f5ed6": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "99316da6-18a0-46c0-8dc2-2818f385dab1",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "Tycho Tatitscheff <tycho.tatitscheff@gmail.com>"
+    }
+  }
+}
