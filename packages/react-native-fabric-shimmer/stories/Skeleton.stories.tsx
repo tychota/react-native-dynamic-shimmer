@@ -113,7 +113,14 @@ const customRenderBone: RenderBoneFn = (rect, ctx) =>
       }}
     />
   ) : (
-    <Bone key={ctx.index} rect={rect} ctx={ctx} />
+    <Bone
+      key={ctx.index}
+      rect={rect}
+      progress={ctx.progress}
+      baseColor={ctx.baseColor}
+      highlightColor={ctx.highlightColor}
+      animation={ctx.animation}
+    />
   );
 
 export const WithCustomBone: Story = {

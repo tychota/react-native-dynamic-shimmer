@@ -6,18 +6,30 @@ import type { BoneProps } from "./types";
 import { shimmerStyle } from "./animation/shimmerStyle";
 import { pulseStyle } from "./animation/pulseStyle";
 
-export function Bone({ rect, ctx }: BoneProps): React.ReactElement {
+// Bone takes flat scalar props instead of a nested `ctx` object so React
+// Compiler can memoise it across Skeleton re-renders. With the old
+// `{rect, ctx}` shape, `ctx` was rebuilt inline in Skeleton's map
+// callback — a fresh object every render — and Compiler couldn't
+// deduplicate it, so every Bone re-ran on every parent state change. The
+// Profiler showed this as the 3.4ms tax on each loading-state transition.
+export function Bone({
+  rect,
+  progress,
+  baseColor,
+  highlightColor,
+  animation,
+}: BoneProps): React.ReactElement {
   const isContainer = rect.kind === "container";
 
   const animatedStyle = useAnimatedStyle(() => {
     // Containers stay static — they represent the card surface, not a
     // loading placeholder. Only leaves (text/image/view) animate.
     if (isContainer) return { opacity: 1 };
-    if (ctx.animation === "shimmer") {
-      return shimmerStyle({ x: rect.x, width: rect.width }, ctx.progress.value);
+    if (animation === "shimmer") {
+      return shimmerStyle({ x: rect.x, width: rect.width }, progress.value);
     }
-    if (ctx.animation === "pulse") {
-      return pulseStyle(ctx.progress.value);
+    if (animation === "pulse") {
+      return pulseStyle(progress.value);
     }
     return { opacity: 1 };
   });
@@ -29,8 +41,8 @@ export function Bone({ rect, ctx }: BoneProps): React.ReactElement {
   // outline is preserved as visual context. Leaves drop captured colors
   // and render as neutral placeholders (baseColor fill, hairline highlight
   // outline) — the skeleton's job is to abstract content, not mirror it.
-  const backgroundColor = isContainer ? rect.backgroundColor : ctx.baseColor;
-  const borderColor = isContainer ? rect.borderColor : ctx.highlightColor;
+  const backgroundColor = isContainer ? rect.backgroundColor : baseColor;
+  const borderColor = isContainer ? rect.borderColor : highlightColor;
   const borderWidth = isContainer ? rect.borderWidth : StyleSheet.hairlineWidth;
 
   return (
@@ -49,18 +61,18 @@ export function Bone({ rect, ctx }: BoneProps): React.ReactElement {
         },
       ]}
     >
-      {!isContainer && ctx.animation === "shimmer" ? (
+      {!isContainer && animation === "shimmer" ? (
         <Animated.View style={[styles.shimmerTrack, animatedStyle]}>
           <LinearGradient
-            colors={["transparent", ctx.highlightColor, "transparent"]}
+            colors={["transparent", highlightColor, "transparent"]}
             start={{ x: 0, y: 0.5 }}
             end={{ x: 1, y: 0.5 }}
             style={styles.gradient}
           />
         </Animated.View>
-      ) : !isContainer && ctx.animation === "pulse" ? (
+      ) : !isContainer && animation === "pulse" ? (
         <Animated.View
-          style={[StyleSheet.absoluteFill, animatedStyle, { backgroundColor: ctx.highlightColor }]}
+          style={[StyleSheet.absoluteFill, animatedStyle, { backgroundColor: highlightColor }]}
         />
       ) : null}
     </View>

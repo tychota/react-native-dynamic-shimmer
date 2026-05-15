@@ -10,7 +10,17 @@ import { useControlledQuery } from "../src/hooks/useControlledQuery";
 
 // Custom bone for images: a solid ring instead of the default gradient sweep.
 const renderBone: RenderBoneFn = (rect, ctx) => {
-  if (rect.kind !== "image") return <Bone key={ctx.index} rect={rect} ctx={ctx} />;
+  if (rect.kind !== "image")
+    return (
+      <Bone
+        key={ctx.index}
+        rect={rect}
+        progress={ctx.progress}
+        baseColor={ctx.baseColor}
+        highlightColor={ctx.highlightColor}
+        animation={ctx.animation}
+      />
+    );
   return (
     <View
       key={ctx.index}

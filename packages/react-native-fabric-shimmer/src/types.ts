@@ -20,6 +20,9 @@ export type BoneRect = {
 
 export type AnimationKind = "shimmer" | "pulse" | "none";
 
+// Passed to user-supplied `renderBone` callbacks. Kept separate from
+// BoneProps so the callback API has access to ordering info (index, total)
+// that the default Bone renderer doesn't need.
 export type BoneContext = {
   readonly progress: SharedValue<number>;
   readonly baseColor: string;
@@ -29,9 +32,28 @@ export type BoneContext = {
   readonly total: number;
 };
 
+// Flat scalar props. React Compiler can memoise the Bone body across
+// Skeleton re-renders when these don't change (e.g. when only `loading`
+// flips). Falling through to the default Bone from inside a renderBone
+// callback needs to pick fields off `ctx` explicitly:
+//
+//   renderBone={(rect, ctx) =>
+//     rect.kind === "image"
+//       ? <MyImageBone rect={rect} ctx={ctx} />
+//       : <Bone
+//           rect={rect}
+//           progress={ctx.progress}
+//           baseColor={ctx.baseColor}
+//           highlightColor={ctx.highlightColor}
+//           animation={ctx.animation}
+//         />
+//   }
 export type BoneProps = {
   readonly rect: BoneRect;
-  readonly ctx: BoneContext;
+  readonly progress: SharedValue<number>;
+  readonly baseColor: string;
+  readonly highlightColor: string;
+  readonly animation: AnimationKind;
 };
 
 export type PerCornerRadius = {

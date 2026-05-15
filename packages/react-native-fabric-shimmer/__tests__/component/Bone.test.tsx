@@ -5,13 +5,9 @@ vi.mock("expo-linear-gradient", () => ({
   LinearGradient: (props: Record<string, unknown>) => React.createElement("LinearGradient", props),
 }));
 
-// react-native-reanimated is mocked in __tests__/setup.ts. Augment that mock
-// with an Animated.View component the test can render. We can't use
-// vi.mock here without re-declaring the entire module — so instead,
-// component rendering goes through React.createElement on the function
-// directly, sidestepping the JSX runtime's lookup of Animated.View.
+// react-native-reanimated is mocked in __tests__/setup.ts.
 import { Bone } from "../../src/Bone";
-import type { BoneRect, BoneContext, BoneKind } from "../../src/types";
+import type { AnimationKind, BoneProps, BoneRect, BoneKind } from "../../src/types";
 
 function makeRect(over: Partial<BoneRect> = {}): BoneRect {
   return {
@@ -25,20 +21,20 @@ function makeRect(over: Partial<BoneRect> = {}): BoneRect {
   };
 }
 
-function makeCtx(over: Partial<BoneContext> = {}): BoneContext {
+function makeProps(
+  over: Partial<Omit<BoneProps, "rect">> & { rect?: Partial<BoneRect> } = {},
+): BoneProps {
+  const { rect: rectOver, ...restOver } = over;
   return {
-    progress: { value: 0 } as unknown as BoneContext["progress"],
+    rect: makeRect(rectOver ?? {}),
+    progress: { value: 0 } as unknown as BoneProps["progress"],
     baseColor: "#aaa",
     highlightColor: "#eee",
-    animation: "shimmer",
-    index: 0,
-    total: 1,
-    ...over,
+    animation: "shimmer" satisfies AnimationKind,
+    ...restOver,
   };
 }
 
-// Walk a React element tree, collecting every descendant element so tests
-// can search by type without rendering through React DOM.
 function collectElements(
   node: React.ReactNode,
   acc: React.ReactElement[] = [],
@@ -84,12 +80,12 @@ function flatStyle(style: unknown): Record<string, unknown> {
 
 describe("Bone", () => {
   it("returns a valid React element for a leaf rect", () => {
-    const tree = Bone({ rect: makeRect(), ctx: makeCtx() });
+    const tree = Bone(makeProps());
     expect(React.isValidElement(tree)).toBe(true);
   });
 
   it("positions the bone at the rect's (x, y) with the given size", () => {
-    const tree = Bone({ rect: makeRect({ x: 12, y: 34, width: 56, height: 78 }), ctx: makeCtx() });
+    const tree = Bone(makeProps({ rect: { x: 12, y: 34, width: 56, height: 78 } }));
     const style = flatStyle((tree.props as { style?: unknown }).style);
     expect(style["left"]).toBe(12);
     expect(style["top"]).toBe(34);
@@ -98,54 +94,52 @@ describe("Bone", () => {
   });
 
   it("uses baseColor for leaf fill", () => {
-    const tree = Bone({ rect: makeRect(), ctx: makeCtx({ baseColor: "#123456" }) });
+    const tree = Bone(makeProps({ baseColor: "#123456" }));
     const style = flatStyle((tree.props as { style?: unknown }).style);
     expect(style["backgroundColor"]).toBe("#123456");
   });
 
   it("uses captured backgroundColor for containers (not baseColor)", () => {
-    const tree = Bone({
-      rect: makeRect({ kind: "container" satisfies BoneKind, backgroundColor: "#fafafa" }),
-      ctx: makeCtx({ baseColor: "#aaa" }),
-    });
+    const tree = Bone(
+      makeProps({
+        rect: { kind: "container" satisfies BoneKind, backgroundColor: "#fafafa" },
+        baseColor: "#aaa",
+      }),
+    );
     const style = flatStyle((tree.props as { style?: unknown }).style);
     expect(style["backgroundColor"]).toBe("#fafafa");
   });
 
   it("renders a LinearGradient track for shimmer leaves", () => {
-    const tree = Bone({ rect: makeRect(), ctx: makeCtx({ animation: "shimmer" }) });
+    const tree = Bone(makeProps({ animation: "shimmer" }));
     expect(findByType(tree, isLinearGradient)).toBeDefined();
   });
 
   it("does NOT render a LinearGradient for containers (static)", () => {
-    const tree = Bone({
-      rect: makeRect({ kind: "container" satisfies BoneKind }),
-      ctx: makeCtx({ animation: "shimmer" }),
-    });
+    const tree = Bone(
+      makeProps({ rect: { kind: "container" satisfies BoneKind }, animation: "shimmer" }),
+    );
     expect(findByType(tree, isLinearGradient)).toBeUndefined();
   });
 
   it("does NOT render a LinearGradient for pulse animation", () => {
-    const tree = Bone({ rect: makeRect(), ctx: makeCtx({ animation: "pulse" }) });
+    const tree = Bone(makeProps({ animation: "pulse" }));
     expect(findByType(tree, isLinearGradient)).toBeUndefined();
   });
 
   it("does NOT render a LinearGradient when animation is none", () => {
-    const tree = Bone({ rect: makeRect(), ctx: makeCtx({ animation: "none" }) });
+    const tree = Bone(makeProps({ animation: "none" }));
     expect(findByType(tree, isLinearGradient)).toBeUndefined();
   });
 
   it("resolves '50%' borderRadius to half the smaller dimension", () => {
-    const tree = Bone({
-      rect: makeRect({ width: 40, height: 60, borderRadius: "50%" }),
-      ctx: makeCtx(),
-    });
+    const tree = Bone(makeProps({ rect: { width: 40, height: 60, borderRadius: "50%" } }));
     const style = flatStyle((tree.props as { style?: unknown }).style);
     expect(style["borderRadius"]).toBe(20);
   });
 
   it("preserves numeric borderRadius unchanged", () => {
-    const tree = Bone({ rect: makeRect({ borderRadius: 8 }), ctx: makeCtx() });
+    const tree = Bone(makeProps({ rect: { borderRadius: 8 } }));
     const style = flatStyle((tree.props as { style?: unknown }).style);
     expect(style["borderRadius"]).toBe(8);
   });

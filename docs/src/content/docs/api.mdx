@@ -60,12 +60,37 @@ type SkeletonProps = {
 ```ts
 type BoneProps = {
   rect: BoneRect;
-  ctx: BoneContext;
+  progress: SharedValue<number>;
+  baseColor: string;
+  highlightColor: string;
+  animation: AnimationKind;
 };
 ```
 
 The default bone renderer. Exposed so custom `renderBone` implementations can
 delegate the default visual back in for bones they don't want to override.
+Props are flat scalars (rather than a nested `ctx` object) so React Compiler
+can memoise the body across `<Skeleton>` re-renders when nothing
+bone-relevant has changed.
+
+When delegating from a `renderBone` callback, pick the four ctx fields
+explicitly:
+
+```tsx
+renderBone={(rect, ctx) =>
+  rect.kind === "image" ? (
+    <MyImageBone rect={rect} ctx={ctx} />
+  ) : (
+    <Bone
+      rect={rect}
+      progress={ctx.progress}
+      baseColor={ctx.baseColor}
+      highlightColor={ctx.highlightColor}
+      animation={ctx.animation}
+    />
+  )
+}
+```
 
 ## Types
 

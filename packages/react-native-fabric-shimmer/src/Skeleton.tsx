@@ -109,19 +109,34 @@ export function Skeleton(props: SkeletonProps): React.ReactElement {
           accessibilityState={{ busy: true }}
         >
           {bones.map((rect: BoneRect, index: number) => {
-            const ctx: BoneContext = {
-              progress,
-              baseColor,
-              highlightColor,
-              animation,
-              index,
-              total: bones.length,
-            };
-            const custom = renderBone?.(rect, ctx);
-            if (custom !== undefined && custom !== null) {
-              return <React.Fragment key={index}>{custom}</React.Fragment>;
+            // Only build ctx when a custom renderBone is provided — the
+            // default path passes flat scalars to BoneImpl directly so
+            // React Compiler can memoise it across re-renders that
+            // don't actually change any bone-relevant prop.
+            if (renderBone !== undefined) {
+              const ctx: BoneContext = {
+                progress,
+                baseColor,
+                highlightColor,
+                animation,
+                index,
+                total: bones.length,
+              };
+              const custom = renderBone(rect, ctx);
+              if (custom !== undefined && custom !== null) {
+                return <React.Fragment key={index}>{custom}</React.Fragment>;
+              }
             }
-            return <DefaultBone key={index} rect={rect} ctx={ctx} />;
+            return (
+              <DefaultBone
+                key={index}
+                rect={rect}
+                progress={progress}
+                baseColor={baseColor}
+                highlightColor={highlightColor}
+                animation={animation}
+              />
+            );
           })}
         </Animated.View>
       ) : null}
