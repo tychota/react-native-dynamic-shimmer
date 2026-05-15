@@ -1,0 +1,41 @@
+packages/react-native-fabric-shimmer/src/animation/useShimmerProgress.ts
+  s_b4a114505f5ed6::t_a76a159566e728 13-17
+packages/react-native-fabric-shimmer/src/animation/shimmerStyle.ts
+  s_b4a114505f5ed6::t_f14e28eef310e4 1-11
+  s_b4a114505f5ed6::t_393a53721da0e8 21-28,35-36
+docs/src/content/docs/extension/colors.mdx
+  s_b4a114505f5ed6::t_48585219efe37e 40-61,63-65,68-78
+  s_b4a114505f5ed6::t_b3a7faa3464d92 62,66-67
+packages/react-native-fabric-shimmer/__tests__/unit/animation/pulseStyle.test.ts
+  s_b4a114505f5ed6::t_e8c57f5269d62e 5,13,20,23
+  s_b4a114505f5ed6::t_fceea084828507 6-8,11-12,15-16,19,21-22,24-25
+packages/react-native-fabric-shimmer/src/animation/pulseStyle.ts
+  s_b4a114505f5ed6::t_2a37739c5ec696 3-5,7,14,17-18
+  s_b4a114505f5ed6::t_78cb4ab704db99 6,8-13
+packages/react-native-fabric-shimmer/__tests__/unit/animation/shimmerStyle.test.ts
+  s_b4a114505f5ed6::t_2041754b44bb70 11
+  s_b4a114505f5ed6::t_b5d6ddc7f89caf 14
+  s_b4a114505f5ed6::t_ef93a99ff0661f 12-13
+apps/example/src/theme/tokens.ts
+  s_b4a114505f5ed6::t_fd2b80b180bdd4 1-25,30-35,40-46
+docs/src/content/docs/api.mdx
+  s_b4a114505f5ed6::t_2a1d8369b92f21 95-115
+apps/example/package.json
+  s_b4a114505f5ed6::t_1c9e530bfe4d43 24,44
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.8",
+  "base_commit_sha": "004ea342ec86aee78712d76f251c28ccf564e679",
+  "prompts": {},
+  "sessions": {
+    "s_b4a114505f5ed6": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "99316da6-18a0-46c0-8dc2-2818f385dab1",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "Tycho Tatitscheff <tycho.tatitscheff@gmail.com>"
+    }
+  }
+}
