@@ -78,6 +78,12 @@ const DEMOS: ReadonlyArray<Demo> = [
     title: "Classify: custom",
     desc: "Treat IconBadge as a single leaf",
   },
+  {
+    group: "Profiling",
+    slug: "profile-stress",
+    title: "Stress test",
+    desc: "50 complex cards + churn controls; profile with React DevTools",
+  },
 ];
 
 export default function Home(): React.ReactElement {
