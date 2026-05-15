@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { RefObject } from "react";
 import type { LayoutChangeEvent } from "react-native";
-import type { BoneRect, BoneNode, ClassifyFn, RefineBonesFn } from "../types";
+import type { BoneRect, BoneNode, ClassifyFn, OnMeasuredFn, RefineBonesFn } from "../types";
 import { getFiber } from "../fiber/getFiber";
 import { defaultClassify } from "../fiber/defaultClassify";
 import { buildBoneTree } from "./buildBoneTree";
@@ -12,7 +12,7 @@ import { getFabricUIManager, isFabricHost } from "../platform/fabric";
 export type UseMeasureBonesOptions = {
   classify?: ClassifyFn;
   refineBones?: RefineBonesFn;
-  onMeasured?: (bones: ReadonlyArray<BoneRect>) => void;
+  onMeasured?: OnMeasuredFn;
 };
 
 export type UseMeasureBonesResult = {
@@ -169,7 +169,7 @@ export function useMeasureBones(
         }
 
         setBones(flat);
-        opts.onMeasured?.(flat);
+        opts.onMeasured?.(flat, refined);
       })();
     },
     [active, containerRef, contentRef],

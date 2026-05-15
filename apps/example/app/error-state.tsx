@@ -21,7 +21,7 @@ export default function ErrorState(): React.ReactElement {
       {q.error !== null ? (
         <View style={styles.errCard}>
           <Text style={styles.errTitle}>Couldn't load user</Text>
-          <Text style={styles.errBody}>{String(q.error?.message)}</Text>
+          <Text style={styles.errBody}>{q.error?.message}</Text>
           <Pressable style={styles.retry} onPress={() => q.refetch()}>
             <Text style={styles.retryText}>Retry</Text>
           </Pressable>

@@ -2,6 +2,8 @@
  * Minimal react-native mock for Vitest / jsdom environment.
  * Only exposes what @testing-library/react-native actually uses.
  */
+import React from "react";
+
 export const StyleSheet = {
   flatten: (style: unknown) => {
     if (style === null || style === undefined) return undefined;
@@ -20,22 +22,41 @@ export const StyleSheet = {
   absoluteFillObject: { position: "absolute", left: 0, right: 0, top: 0, bottom: 0 },
 };
 
-export const View = "View";
-export const Text = "Text";
-export const Image = "Image";
-export const Pressable = "Pressable";
-export const TouchableOpacity = "TouchableOpacity";
-export const TouchableHighlight = "TouchableHighlight";
-export const TouchableWithoutFeedback = "TouchableWithoutFeedback";
-export const ScrollView = "ScrollView";
-export const FlatList = "FlatList";
-export const SectionList = "SectionList";
-export const Modal = "Modal";
-export const ActivityIndicator = "ActivityIndicator";
-export const TextInput = "TextInput";
-export const Switch = "Switch";
-export const SafeAreaView = "SafeAreaView";
-export const KeyboardAvoidingView = "KeyboardAvoidingView";
+type HostProps = Record<string, unknown> & { children?: React.ReactNode };
+
+function host(name: string, element: keyof React.JSX.IntrinsicElements = "div") {
+  const Component = React.forwardRef<unknown, HostProps>((props, ref) => {
+    const { children, style } = props;
+    return React.createElement(
+      element,
+      {
+        ref,
+        style: StyleSheet.flatten(style) as React.CSSProperties | undefined,
+        "data-rn": name,
+      },
+      children,
+    );
+  });
+  Component.displayName = name;
+  return Component;
+}
+
+export const View = host("View");
+export const Text = host("Text", "span");
+export const Image = host("Image", "img");
+export const Pressable = host("Pressable", "button");
+export const TouchableOpacity = host("TouchableOpacity", "button");
+export const TouchableHighlight = host("TouchableHighlight", "button");
+export const TouchableWithoutFeedback = host("TouchableWithoutFeedback", "button");
+export const ScrollView = host("ScrollView");
+export const FlatList = host("FlatList");
+export const SectionList = host("SectionList");
+export const Modal = host("Modal");
+export const ActivityIndicator = host("ActivityIndicator");
+export const TextInput = host("TextInput", "input");
+export const Switch = host("Switch", "input");
+export const SafeAreaView = host("SafeAreaView");
+export const KeyboardAvoidingView = host("KeyboardAvoidingView");
 
 export const Platform = {
   OS: "ios",
@@ -78,9 +99,9 @@ export const Animated = {
   Value: class {
     setValue(_v: number) {}
   },
-  View: "Animated.View",
-  Text: "Animated.Text",
-  Image: "Animated.Image",
+  View: host("Animated.View"),
+  Text: host("Animated.Text", "span"),
+  Image: host("Animated.Image", "img"),
   timing: () => ({ start: () => {}, stop: () => {} }),
   spring: () => ({ start: () => {}, stop: () => {} }),
   decay: () => ({ start: () => {}, stop: () => {} }),

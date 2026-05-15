@@ -19,5 +19,6 @@ export type {
   RenderBoneFn,
   ClassifyFn,
   RefineBonesFn,
+  OnMeasuredFn,
   AnimationKind,
 } from "./types";

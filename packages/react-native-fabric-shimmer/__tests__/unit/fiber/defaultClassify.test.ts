@@ -64,7 +64,7 @@ describe("defaultClassify", () => {
     // one level below. The walker must descend — not stop at the component
     // fiber with a null stateNode.
     const componentText = {
-      type: function Text() {
+      type: function ComponentText() {
         return null;
       },
       memoizedProps: {},
@@ -78,7 +78,7 @@ describe("defaultClassify", () => {
 
   it("classifies a function-component named View as transparent", () => {
     const componentView = {
-      type: function View() {
+      type: function ComponentView() {
         return null;
       },
       memoizedProps: { style: { backgroundColor: "#fff" } },

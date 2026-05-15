@@ -60,9 +60,26 @@ jest.mock("react-native-reanimated", () => {
     return value < input[0] ? output[0] : output[output.length - 1];
   };
 
-  const AnimatedView = React.forwardRef((props: Record<string, unknown>, ref: unknown) =>
-    React.createElement("Animated.View", { ...props, ref }),
-  );
+  const AnimatedView = React.forwardRef((props: Record<string, unknown>, ref: unknown) => {
+    const { children, style } = props;
+    return React.createElement(
+      "div",
+      { ref, style: flattenStyle(style), "data-rn": "Animated.View" },
+      children,
+    );
+  });
+
+  function flattenStyle(style: unknown): Record<string, unknown> | undefined {
+    if (style === null || style === undefined) return undefined;
+    if (Array.isArray(style)) {
+      return style.reduce<Record<string, unknown>>(
+        (acc, item) => Object.assign(acc, flattenStyle(item)),
+        {},
+      );
+    }
+    if (typeof style === "object") return style as Record<string, unknown>;
+    return undefined;
+  }
 
   return {
     __esModule: true,

@@ -102,6 +102,7 @@ export type FiberClassification = "leaf" | "container" | "transparent" | "skip";
 export type RenderBoneFn = (rect: BoneRect, ctx: BoneContext) => ReactNode;
 export type ClassifyFn = (fiber: FiberNode) => FiberClassification;
 export type RefineBonesFn = (tree: BoneNode) => BoneNode;
+export type OnMeasuredFn = (bones: ReadonlyArray<BoneRect>, tree: BoneNode) => void;
 
 export type SkeletonProps = {
   loading: boolean;
@@ -118,7 +119,7 @@ export type SkeletonProps = {
   classify?: ClassifyFn;
   refineBones?: RefineBonesFn;
 
-  onMeasured?: (bones: ReadonlyArray<BoneRect>) => void;
+  onMeasured?: OnMeasuredFn;
 
   style?: StyleProp<ViewStyle>;
   accessibilityLabel?: string;
