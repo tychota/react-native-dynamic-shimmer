@@ -1,0 +1,26 @@
+packages/react-native-fabric-shimmer/package.json
+  s_2f970c4aac19d4::t_9c5d3399f56b5d 3
+.changeset/pre.json
+  s_2f970c4aac19d4::t_033fc96b1dba45 1-8,10
+  ai_agent 9
+packages/react-native-fabric-shimmer/CHANGELOG.md
+  s_2f970c4aac19d4::t_9c5d3399f56b5d 3-33
+.changeset/v0-3-0-bone-flatten-and-redesign.md
+  s_2f970c4aac19d4::t_67d9e73bfdf5fc 2
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.8",
+  "base_commit_sha": "2b4be30a462c79f7ceb721b36f9047ef0c97afde",
+  "prompts": {},
+  "sessions": {
+    "s_2f970c4aac19d4": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "37d7aecc-697e-4f52-a9a6-99a53444093d",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "Tycho Tatitscheff <tycho.tatitscheff@gmail.com>"
+    }
+  }
+}
