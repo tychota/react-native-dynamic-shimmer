@@ -10,7 +10,11 @@ import {
 } from "react-native-reanimated";
 import type { AnimationKind } from "../types";
 
-const DURATION_MS = 1400;
+// 1500 ms per cycle reads as "ambient movement" rather than "this is
+// loading right NOW." Faster pulls the eye too aggressively for a
+// placeholder that may be on screen for several seconds; slower than
+// ~2 s starts to feel sluggish.
+const DURATION_MS = 1500;
 
 export function useShimmerProgress(active: boolean, kind: AnimationKind): SharedValue<number> {
   const progress = useSharedValue(0);

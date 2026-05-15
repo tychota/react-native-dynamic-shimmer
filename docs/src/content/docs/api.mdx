@@ -92,6 +92,27 @@ renderBone={(rect, ctx) =>
 }
 ```
 
+### Container vs leaf rendering
+
+The default `<Bone>` distinguishes between two kinds of rect that the
+classifier emits:
+
+- **Container** (`rect.kind === "container"`) — a wrapping View with its
+  own background and/or border in the original source (e.g. a card with
+  `borderRadius` and a `surface` background). The default Bone renders
+  these **statically**, using the source's captured `backgroundColor` /
+  `borderColor` / `borderWidth` verbatim. The card outline stays present
+  as visual context; the shimmer or pulse animation doesn't apply to it.
+- **Leaf** (`rect.kind === "text" | "image" | "view"`) — the actual
+  placeholder for content. These animate (shimmer / pulse / none),
+  filled with `baseColor` and outlined with a hairline `highlightColor`
+  border for definition.
+
+The split makes the loading state read as "an empty version of the real
+card with shimmering content inside" rather than "a fully shimmering
+blob." Override either by classifying differently with `classify`, or
+by replacing the visual with `renderBone`.
+
 ## Types
 
 ```ts

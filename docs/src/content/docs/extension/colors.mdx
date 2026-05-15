@@ -37,3 +37,42 @@ Start with a two-step grey, slightly lighter highlight:
 | Dark  | `#1f1f23`   | `#2a2a2f`        |
 
 For strong brand presence, use a brand color's 10% and 20% tints.
+
+## Picking colours in OKLCH
+
+OKLCH (CSS Color 4) gives you perceptually-uniform lightness steps —
+moving from `L=92%` to `L=97%` actually feels like "one step brighter,"
+unlike sRGB hex arithmetic where the same numerical step behaves
+differently on the dark vs light end. Tailwind v4's neutral scales
+(slate, zinc, stone, neutral) are defined in OKLCH for this reason.
+
+React Native 0.83 doesn't accept `oklch(...)` strings in its colour
+parser yet — that's queued for 0.84+. Until then, define your palette
+in OKLCH for design clarity and convert to hex at module load:
+
+```ts
+// theme/tokens.ts
+import { formatHex } from "culori";
+
+const oklch = (l: number, c: number, h: number): string =>
+  formatHex({ mode: "oklch", l, c, h }) ?? "#000";
+
+export const skeletonColors = {
+  light: {
+    base: oklch(0.92, 0.004, 286), // ≈ Tailwind zinc-200
+    highlight: oklch(0.967, 0.001, 286), // ≈ zinc-100
+  },
+  dark: {
+    base: oklch(0.27, 0.012, 286), // ≈ between zinc-800 and zinc-900
+    highlight: oklch(0.37, 0.013, 286), // ≈ zinc-700
+  },
+};
+```
+
+The example app in this repo uses exactly this pattern — see
+`apps/example/src/theme/tokens.ts`.
+
+`culori` is a pure-JS package, so it works in any React Native
+environment without native bindings. When RN's colour parser gains
+direct `oklch()` support, drop the `culori` step and pass the strings
+through — the OKLCH parameters in source stay the same.

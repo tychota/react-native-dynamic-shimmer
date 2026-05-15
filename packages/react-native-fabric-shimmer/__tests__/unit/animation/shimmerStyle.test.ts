@@ -8,7 +8,10 @@ describe("shimmerStyle", () => {
 
   it("returns a bar width proportional to rect width", () => {
     const s = shimmerStyle({ x: 0, width: 100 }, 0);
-    expect(s.width).toBe(40);
+    // Bar fraction is 58% of the rect width — see BAR_FRACTION in
+    // shimmerStyle.ts. Wider than a stripe so the highlight reads as
+    // ambient light passing over the bone.
+    expect(s.width).toBeCloseTo(58, 5);
   });
 
   it("produces a translateX that advances with progress", () => {
