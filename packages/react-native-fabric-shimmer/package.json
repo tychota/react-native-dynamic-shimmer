@@ -38,6 +38,11 @@
       "require": "./dist/index.cjs"
     }
   },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true,
+    "registry": "https://registry.npmjs.org/"
+  },
   "scripts": {
     "build": "tsdown && tsc -p tsconfig.build.json",
     "package:check": "node ../../scripts/check-package.mjs .",
