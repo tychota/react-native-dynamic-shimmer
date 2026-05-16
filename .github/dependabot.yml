@@ -3,7 +3,12 @@ updates:
   - package-ecosystem: "npm"
     directory: "/"
     schedule: { interval: "weekly" }
-    open-pull-requests-limit: 5
+    # Routine dependency upgrades are curated manually. Security updates still
+    # use GitHub's separate Dependabot security-update flow.
+    open-pull-requests-limit: 0
+    # Keep this as the policy if routine version PRs are re-enabled later.
+    # It mirrors pnpm's 72h `minimumReleaseAge` workspace gate.
+    cooldown: { default-days: 3 }
     # react-native-reanimated and react-native-worklets are pinned via
     # pnpm.overrides in the workspace root (RN 0.83 Fabric compat). Bumping
     # them will fight the override and produce dirty PRs forever. Same
@@ -35,3 +40,7 @@ updates:
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule: { interval: "weekly" }
+    # Action upgrades are also reviewed manually so release/CI behavior changes
+    # stay grouped with the code that depends on them.
+    open-pull-requests-limit: 0
+    cooldown: { default-days: 3 }
